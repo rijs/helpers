@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/rijs/helpers/badge.svg?branch=master&service=github)](https://coveralls.io/github/rijs/helpers?branch=master)
 [![Build Status](https://travis-ci.org/rijs/helpers.svg)](https://travis-ci.org/rijs/helpers)
 
-Registers helpers functions for a resource:
+Registers helper functions for a resource:
 
 ```js
 export default {
