@@ -4,7 +4,7 @@
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
 // -------------------------------------------
-// User Management Middleware
+// Attach Helper Functions for Resources
 // -------------------------------------------
 module.exports = helpers;
 

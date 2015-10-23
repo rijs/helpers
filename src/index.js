@@ -1,5 +1,5 @@
 // -------------------------------------------
-// User Management Middleware
+// Attach Helper Functions for Resources
 // -------------------------------------------
 export default function helpers(ripple){
   log('creating')
