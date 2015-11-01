@@ -8,9 +8,9 @@ describe('Helpers', function(){
   it('should attach helpers, despite updating data', function(){  
     var ripple = helpers(data(core()))
 
-    ripple('foo', { bar: 1 }, { helpers: [ help ] })
-    expect(ripple('foo').help()).to.be.eql(10)
+    ripple('foo', { bar: 1 }, { helpers: { help: help } })
     expect(ripple('foo').help).to.be.a('function')
+    expect(ripple('foo').help()).to.be.eql(10)
     expect(ripple('foo').bar).to.be.eql(1)
 
     ripple('foo', { bar: 2 })
@@ -26,6 +26,23 @@ describe('Helpers', function(){
     ripple('foo', { bar: 1 }, { })
     expect(ripple('foo').String).to.not.be.a('function')
     expect(ripple('foo').bar).to.be.eql(1)
+  })
+
+  it('should attach helpers via object', function(){  
+    var ripple = helpers(data(core()))
+
+    ripple('foo', { bar: 1 }, { helpers: { help: help, num: 5 } })
+    expect(ripple('foo').help).to.be.a('function')
+    expect(ripple('foo').help()).to.be.eql(10)
+    expect(ripple('foo').bar).to.be.eql(1)
+    expect(ripple('foo').num).to.be.eql(5)
+
+    ripple('foo', { bar: 2 })
+    expect(ripple('foo').help).to.be.a('function')
+    expect(ripple('foo').bar).to.be.eql(2)    
+    expect(ripple('foo').num).to.be.eql(5)
+
+    function help(){ return 10 }
   })
 
 })

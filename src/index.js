@@ -12,14 +12,17 @@ export default function helpers(ripple){
 }
 
 function attach(res){
-  (key('headers.helpers')(res) || [])
-    .map(fn => def(res.body, fn.name, fn))
+  var helpers = key('headers.helpers')(res)
+
+  keys(helpers)
+    .map(name => def(res.body, name, helpers[name]))
 
   return res
 }
 
 import values from 'utilise/values'
 import proxy from 'utilise/proxy'
+import keys from 'utilise/keys'
 import key from 'utilise/key'
 import def from 'utilise/def'
 import log from 'utilise/log'

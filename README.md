@@ -8,7 +8,7 @@ Registers helper functions for a resource:
 export default {
   name: 'foo'
 , body: { bar: 1 }  
-, headers: { helpers: [ help ] }
+, headers: { helpers: { help, constant: 5 } }
 }
 
 function help(){ return 'help!' }
@@ -17,9 +17,12 @@ function help(){ return 'help!' }
 You will be able to access the helper functions from the resource itself, even if you overwrite the entire resource body:
 
 ```js
-ripple('foo').help()
+ripple('foo').help()   // 'help!'
+ripple('foo').constant // 5
 
 ripple('foo', { bar: 2 })
 
-ripple('foo').help()
+ripple('foo').help()   // 'help!'
+ripple('foo').constant // 5
 ```
+

@@ -20,8 +20,10 @@ function helpers(ripple) {
 }
 
 function attach(res) {
-  (key("headers.helpers")(res) || []).map(function (fn) {
-    return def(res.body, fn.name, fn);
+  var helpers = key("headers.helpers")(res);
+
+  keys(helpers).map(function (name) {
+    return def(res.body, name, helpers[name]);
   });
 
   return res;
@@ -30,6 +32,8 @@ function attach(res) {
 var values = _interopRequire(require("utilise/values"));
 
 var proxy = _interopRequire(require("utilise/proxy"));
+
+var keys = _interopRequire(require("utilise/keys"));
 
 var key = _interopRequire(require("utilise/key"));
 
@@ -40,7 +44,7 @@ var log = _interopRequire(require("utilise/log"));
 var by = _interopRequire(require("utilise/by"));
 
 log = log("[rijs/helpers]");
-},{"utilise/by":2,"utilise/def":5,"utilise/key":9,"utilise/log":11,"utilise/proxy":13,"utilise/values":17}],2:[function(require,module,exports){
+},{"utilise/by":2,"utilise/def":5,"utilise/key":9,"utilise/keys":10,"utilise/log":11,"utilise/proxy":13,"utilise/values":17}],2:[function(require,module,exports){
 var key = require('utilise/key')
   , is  = require('utilise/is')
 
