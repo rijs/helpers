@@ -38,8 +38,7 @@ import keys from 'utilise/keys'
 import key from 'utilise/key'
 import def from 'utilise/def'
 import str from 'utilise/str'
-import log from 'utilise/log'
 import by from 'utilise/by'
 import is from 'utilise/is'
 import fn from 'utilise/fn'
-log = log('[rijs/helpers]')
+var log = require('utilise/log')('[ri/helpers]')
