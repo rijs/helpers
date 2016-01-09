@@ -17,10 +17,6 @@ var _keys = require('utilise/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _key = require('utilise/key');
-
-var _key2 = _interopRequireDefault(_key);
-
 var _def = require('utilise/def');
 
 var _def2 = _interopRequireDefault(_def);

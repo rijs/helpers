@@ -32,13 +32,12 @@ function serialise(res) {
   return res
 }
 
+const log = require('utilise/log')('[ri/helpers]')
 import values from 'utilise/values'
 import proxy from 'utilise/proxy'
 import keys from 'utilise/keys'
-import key from 'utilise/key'
 import def from 'utilise/def'
 import str from 'utilise/str'
 import by from 'utilise/by'
 import is from 'utilise/is'
 import fn from 'utilise/fn'
-var log = require('utilise/log')('[ri/helpers]')
