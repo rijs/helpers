@@ -46,37 +46,39 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function helpers(ripple) {
   log('creating');
 
-  (0, _values2.default)(ripple.types).filter((0, _by2.default)('header', 'application/data')).filter(function (type) {
-    return type.parse = (0, _proxy2.default)(type.parse, attach);
-  }).filter(function (type) {
-    return type.to = (0, _proxy2.default)(type.to, serialise);
-  });
-
+  var type = ripple.types['application/data'];
+  type.parse = attach(type.parse);
+  if (!client) type.to = serialise(type.to);
   return ripple;
 }
 
-function attach(res) {
-  var helpers = res.headers.helpers;
+var attach = function attach(next) {
+  return function (res) {
+    var helpers = res.headers.helpers;
 
-  (0, _keys2.default)(helpers).map(function (name) {
-    return helpers[name] = (0, _fn2.default)(helpers[name]), name;
-  }).map(function (name) {
-    return (0, _def2.default)(res.body, name, helpers[name]);
-  });
+    (0, _keys2.default)(helpers).map(function (name) {
+      return helpers[name] = (0, _fn2.default)(helpers[name]), name;
+    }).map(function (name) {
+      return (0, _def2.default)(res.body, name, helpers[name]);
+    });
 
-  return res;
-}
+    return next ? next(res) : res;
+  };
+};
 
-function serialise(res) {
-  var helpers = res.headers.helpers;
+var serialise = function serialise(next) {
+  return function (res, change) {
+    if (change) return next ? next.call(this, res, change) : true;
+    var helpers = res.headers.helpers;
 
-  (0, _keys2.default)(helpers).filter(function (name) {
-    return _is2.default.fn(helpers[name]);
-  }).map(function (name) {
-    return helpers[name] = (0, _str2.default)(helpers[name]);
-  });
+    (0, _keys2.default)(helpers).filter(function (name) {
+      return _is2.default.fn(helpers[name]);
+    }).map(function (name) {
+      return helpers[name] = (0, _str2.default)(helpers[name]);
+    });
 
-  return res;
-}
+    return next ? next.call(this, res, change) : res;
+  };
+};
 
 var log = require('utilise/log')('[ri/helpers]');

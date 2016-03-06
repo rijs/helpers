@@ -4,32 +4,31 @@
 export default function helpers(ripple){
   log('creating')
 
-  values(ripple.types)
-    .filter(by('header', 'application/data'))
-    .filter(type => type.parse = proxy(type.parse, attach))
-    .filter(type => type.to = proxy(type.to, serialise))
-
+  const type = ripple.types['application/data']
+  type.parse = attach(type.parse)
+  if (!client) type.to = serialise(type.to)
   return ripple
 }
 
-function attach(res){
-  var helpers = res.headers.helpers
+const attach = next => res => {
+  const helpers = res.headers.helpers
 
   keys(helpers)
     .map(name => (helpers[name] = fn(helpers[name]), name))
     .map(name => def(res.body, name, helpers[name]))
 
-  return res
+  return next ? next(res) : res
 }
 
-function serialise(res) {
-  var helpers = res.headers.helpers
+const serialise = next => function(res, change) {
+  if (change) return next ? next.call(this, res, change) : true
+  const helpers = res.headers.helpers
 
   keys(helpers)
     .filter(name => is.fn(helpers[name]))
     .map(name => helpers[name] = str(helpers[name]))
 
-  return res
+  return next ? next.call(this, res, change) : res
 }
 
 const log = require('utilise/log')('[ri/helpers]')
