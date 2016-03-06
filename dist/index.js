@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = helpers;
 
+var _client = require('utilise/client');
+
+var _client2 = _interopRequireDefault(_client);
+
 var _values = require('utilise/values');
 
 var _values2 = _interopRequireDefault(_values);
-
-var _proxy = require('utilise/proxy');
-
-var _proxy2 = _interopRequireDefault(_proxy);
 
 var _keys = require('utilise/keys');
 
@@ -48,12 +48,13 @@ function helpers(ripple) {
 
   var type = ripple.types['application/data'];
   type.parse = attach(type.parse);
-  if (!client) type.to = serialise(type.to);
+  if (!_client2.default) type.to = serialise(type.to);
   return ripple;
 }
 
 var attach = function attach(next) {
   return function (res) {
+    if (next) res = next(res);
     var helpers = res.headers.helpers;
 
     (0, _keys2.default)(helpers).map(function (name) {
@@ -62,7 +63,7 @@ var attach = function attach(next) {
       return (0, _def2.default)(res.body, name, helpers[name]);
     });
 
-    return next ? next(res) : res;
+    return res;
   };
 };
 

@@ -11,13 +11,14 @@ export default function helpers(ripple){
 }
 
 const attach = next => res => {
+  if (next) res = next(res)
   const helpers = res.headers.helpers
 
   keys(helpers)
     .map(name => (helpers[name] = fn(helpers[name]), name))
     .map(name => def(res.body, name, helpers[name]))
 
-  return next ? next(res) : res
+  return res
 }
 
 const serialise = next => function(res, change) {
@@ -32,8 +33,8 @@ const serialise = next => function(res, change) {
 }
 
 const log = require('utilise/log')('[ri/helpers]')
+import client from 'utilise/client'
 import values from 'utilise/values'
-import proxy from 'utilise/proxy'
 import keys from 'utilise/keys'
 import def from 'utilise/def'
 import str from 'utilise/str'

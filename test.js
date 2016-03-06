@@ -45,7 +45,7 @@ describe('Helpers', function(){
     function help(){ return 10 }
   })
 
-  it('should be serialise and deserialise helper functions', function(){ 
+  it('should serialise and deserialise helper functions', function(){ 
     var ripple = helpers(data(core()))
     ripple('foo', { bar: 1 }, { helpers: { help: help } })
     expect(ripple.types['application/data'].to(ripple.resources.foo).headers.helpers.help).to.be.a('string')
