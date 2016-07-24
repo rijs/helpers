@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = helpers;
 
+var _identity = require('utilise/identity');
+
+var _identity2 = _interopRequireDefault(_identity);
+
 var _client = require('utilise/client');
 
 var _client2 = _interopRequireDefault(_client);
@@ -68,9 +72,8 @@ var attach = function attach(next) {
 };
 
 var serialise = function serialise(next) {
-  return function (res, change) {
-    if (change) return next ? next.call(this, res, change) : true;
-    var helpers = res.headers.helpers;
+  return function (req) {
+    var helpers = req.headers.helpers;
 
     (0, _keys2.default)(helpers).filter(function (name) {
       return _is2.default.fn(helpers[name]);
@@ -78,7 +81,7 @@ var serialise = function serialise(next) {
       return helpers[name] = (0, _str2.default)(helpers[name]);
     });
 
-    return next ? next.call(this, res, change) : res;
+    return (next || _identity2.default)(req);
   };
 };
 

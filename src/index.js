@@ -21,18 +21,18 @@ const attach = next => res => {
   return res
 }
 
-const serialise = next => function(res, change) {
-  if (change) return next ? next.call(this, res, change) : true
-  const helpers = res.headers.helpers
+const serialise = next => req => {
+  const helpers = req.headers.helpers
 
   keys(helpers)
     .filter(name => is.fn(helpers[name]))
     .map(name => helpers[name] = str(helpers[name]))
 
-  return next ? next.call(this, res, change) : res
+  return (next || identity)(req)
 }
 
 const log = require('utilise/log')('[ri/helpers]')
+import identity from 'utilise/identity'
 import client from 'utilise/client'
 import values from 'utilise/values'
 import keys from 'utilise/keys'
