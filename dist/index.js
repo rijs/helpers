@@ -73,7 +73,10 @@ var attach = function attach(next) {
 
 var serialise = function serialise(next) {
   return function (req) {
+    if (!req.headers) return (next || _identity2.default)(req);
+
     var helpers = req.headers.helpers;
+
 
     (0, _keys2.default)(helpers).filter(function (name) {
       return _is2.default.fn(helpers[name]);

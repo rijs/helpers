@@ -22,7 +22,9 @@ const attach = next => res => {
 }
 
 const serialise = next => req => {
-  const helpers = req.headers.helpers
+  if (!req.headers) return (next || identity)(req)
+
+  const { helpers } = req.headers
 
   keys(helpers)
     .filter(name => is.fn(helpers[name]))
