@@ -1,7 +1,7 @@
 // -------------------------------------------
 // Attach Helper Functions for Resources
 // -------------------------------------------
-export default function helpers(ripple){
+module.exports = function helpers(ripple){
   log('creating')
 
   const type = ripple.types['application/data']
@@ -34,12 +34,12 @@ const serialise = next => req => {
 }
 
 const log = require('utilise/log')('[ri/helpers]')
-import identity from 'utilise/identity'
-import client from 'utilise/client'
-import values from 'utilise/values'
-import keys from 'utilise/keys'
-import def from 'utilise/def'
-import str from 'utilise/str'
-import by from 'utilise/by'
-import is from 'utilise/is'
-import fn from 'utilise/fn'
+    , identity = require('utilise/identity')
+    , client = require('utilise/client')
+    , values = require('utilise/values')
+    , keys = require('utilise/keys')
+    , def = require('utilise/def')
+    , str = require('utilise/str')
+    , by = require('utilise/by')
+    , is = require('utilise/is')
+    , fn = require('utilise/fn')
